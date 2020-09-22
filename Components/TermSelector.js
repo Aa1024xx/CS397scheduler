@@ -1,27 +1,25 @@
 import React from 'react';
-import {  StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-const termMap = { F: 'Fall', W: 'Winter', S: 'Spring' };
-const terms = Object.values(termMap);
 
-const TermButton = ({term, setSelectedTerm, isActive}) => (
-    <TouchableOpacity style={styles[isActive ? 'termButtonActive' : 'termButton']} 
+const TermButton = ({term, isActive, setSelectedTerm}) => (
+    <TouchableOpacity style={styles[isActive ? 'termButtonActive' : 'termButton']}
         onPress={() => setSelectedTerm(term)}>
-      <Text style={styles.termText}>{term}</Text>
+        <Text style={styles.termText}>{term}</Text>
     </TouchableOpacity>
-  );
-  
-const TermSelector = ({selectedTerm, setSelectedTerm}) => (
-    <View style={styles.termSelector}>
-      { 
-        terms.map(term => (
-          <TermButton key={term} term={term} setSelectedTerm={setSelectedTerm}
-          isActive={term === selectedTerm}
-          />
-        ))
-      }
-    </View>
 );
+
+const TermSelector = ({terms, selectedTerm, setSelectedTerm}) => (
+    <View style={styles.TermSelector}>
+        {
+            terms.map(term => (
+                <TermButton key={term} term={term} setSelectedTerm={setSelectedTerm}
+                    isActive={term === selectedTerm}
+                />
+            ))
+        }
+    </View>
+)
 
 const termButtonBase = {
     flex: 1,
@@ -30,29 +28,30 @@ const termButtonBase = {
     alignItems: 'center',
     margin: 10,
     height: 40,
-    padding: 10,
+    padding: 10, 
     minWidth: 90,
-    maxWidth: 90,
+    maxWidth: 90
 };
-    
-  const styles = StyleSheet.create({
-    termSelector: {
+
+const styles = StyleSheet.create({
+    TermSelector: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: 350,
-      },
+    },
     termButton: {
-      ...termButtonBase,
-      backgroundColor: '#4f9f64'
+        ...termButtonBase,
+        backgroundColor: '#4f9f64',
     },
     termButtonActive: {
-      ...termButtonBase,
-      backgroundColor: '#105f25',
+        ...termButtonBase,
+        backgroundColor: '#105f25'
     },
     termText: {
         color: '#fff',
         fontSize: 15,
-      },
-  });
+    },
+});
 
-  export default TermSelector;
+
+export default TermSelector;
